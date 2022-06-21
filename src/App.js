@@ -1,19 +1,18 @@
-import './App.css';
 
+import React from 'react';
+import {HashRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
+import loadable from './utils/loadable';
+import 'animate.css'
+import './style/App.scss'
+import './style/base.scss'
+const Login = loadable(()=> import('./views/Login'))
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+        </Switch>
+    </Router>
   );
 }
 
