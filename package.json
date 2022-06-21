@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "animate.css":"^3.7.2",
-    "antd":"^3.23.5",
-    "nprogress":"^0.2.0",
-    "react-loadable":"^5.5.0",
+    "@ant-design/icons": "^4.7.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "animate.css": "^3.7.2",
+    "antd": "^4.21.3",
+    "nprogress": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loadable": "^5.5.0",
+    "react-router-dom": "^5.1.1",
     "react-scripts": "5.0.1",
-    "react-router-dom":"^5.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -41,9 +42,9 @@
     ]
   },
   "devDependencies": {
-    "node-sass":"^4.13.0",
-    "babel-plugin-import":"^1.12.2",
-    "customize-cra":"^0.8.0",
-    "react-app-rewired":"^2.1.4"
+    "node-sass": "^4.13.0",
+    "babel-plugin-import": "^1.12.2",
+    "customize-cra": "^0.8.0",
+    "react-app-rewired": "^2.1.4"
   }
 }

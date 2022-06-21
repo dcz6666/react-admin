@@ -1,35 +1,64 @@
 import React, { Component } from 'react'
-import { Layout, Divider,Form, Input,Button } from 'antd'
-import {widthRouter} from 'react-router-dom'
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Divider, Form, Input, Button, notification, message } from 'antd'
+// import { widthRouter } from 'react-router-dom'
 import '@/style/view-style/login.scss'
 class Login extends Component {
+    state = {
+        loading: false
+    }
+    onFinish = (values) => {
+        console.log('Received values of form: 1', values);
+        switch (values.username) {
+            case 'admin':
+                values.auth = 0
+                break;
+            default:
+                values.auth = 1
+        }
+        localStorage.setItem('user', JSON.stringify(values))
+        this.enterLoading()
+        this.timer = setTimeout(()=>{
+            message.success("登录成功！")
+            console.log("this.props",this.props)
+            this.props.history.push("/")
+        },2000)
+    };
+    enterLoading=()=>{
+        this.setState({loading:true})
+    }
+
+    componentDidMount() {
+        notification.open({
+            message: '欢迎使用后台管理平台',
+            duration:3,
+            description:'账号 admin(管理员) 其他（游客）密码随意',
+        })
+    }
+    componentWillUnmount(){
+        notification.destroy()
+        this.timer && clearTimeout(this.timer)
+    }
+
     render() {
-        console.log("this.props.form",this.props.form);
-        const {getFieldDecorator} =this.props.form
+        let {loading} =this.state
         return (
             <Layout className='login animated fadeIn'>
                 <div className='model'>
                     <div className='login-form'>
                         <h3>后台管理系统</h3>
                         <Divider />
-                        <Form>
-                            <Form.Item>
-                               {getFieldDecorator('usename',{
-                                    rules:[{required: true,message: '请输入用户名!'}]
-                               })(
-                                <Input placeholder="用户名"/>
-                               )}
+                        <Form name="normal_login" initialValues={{ remember: true }} onFinish={this.onFinish}>
+                            <Form.Item name="username" rules={[{ required: true, message: '请您输入您的姓名' }]}>
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                             </Form.Item>
-
-                            <Form.Item>
-                                {getFieldDecorator('password',{
-                                    rules:[{required: true,message: '请输入密码!'}]
-                                })(
-                                 <Input.Password placeholder="密码"/>
-                                )}
+                            <Form.Item name="password" rules={[{ required: true, message: '请输入正确密码' }]} >
+                                <Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password"/>
                             </Form.Item>
                             <Form.Item>
-                                <Button className='login-form-button' type="primary">登录</Button>
+                                <Button loading={loading} type="primary" htmlType="submit" className="login-form-button">
+                                    登录
+                                </Button>
                             </Form.Item>
                         </Form>
                     </div>
@@ -38,5 +67,4 @@ class Login extends Component {
         )
     }
 }
-// export default widthRouter(Form.create()(Login))
-export default Form.create()(Login)
+export default Login
